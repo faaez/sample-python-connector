@@ -31,6 +31,8 @@ class Envirionment(object):
         self.mongo_host = None
         self.mongo_port = None
         self.mongo_db = None
+        self.mongo_username = None
+        self.mongo_password = None
         self.kwargs = None # Ew
 
         self.logr = logging.getLogger('Environment')
@@ -86,6 +88,8 @@ class Envirionment(object):
             self.mongo_host = self.config.get('mongo', 'host')
             self.mongo_port = self.config.get('mongo', 'port')
             self.mongo_db = self.config.get('mongo', 'db')
+            self.mongo_username = self.config.get('mongo','username')
+            self.mongo_password = self.config.get('mongo','password')
             # self.mongo_collection = self.config.get('mongo','collection')
 
     def setup_logs(self):

@@ -41,6 +41,7 @@ class MongoProcessor(BaseProcessor):
             port = int(self.environment.mongo_port)
             db = self.environment.mongo_db
             self._client = MongoClient(host=host, port=port)[db]
+            self._client.authenticate(self.environment.mongo_username,self.environment.mongo_password)
         return self._client
 
     # def collection(self):
