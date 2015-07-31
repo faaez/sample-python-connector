@@ -6,7 +6,7 @@ from multiprocessing import queues
 from pymongo import MongoClient
 from src.processor.BaseProcessor import BaseProcessor
 
-MONGO_COLLECTION = "tweets"
+MONGO_COLLECTIONS = {"lncs":"lncs_combined_gnip","dietssds":"dietssds_decanted_gnip"}
 
 
 class MongoProcessor(BaseProcessor):
@@ -26,24 +26,28 @@ class MongoProcessor(BaseProcessor):
             payload = self.next_message()
             if not None == payload:
                 payload['random'] = random.random()
-                payload['gnip'] = True
+                payload['after_gnip'] = True
                 self.put_in_mongo(payload)
         self.logr.debug("Exiting Mongo run loop")
 
     def put_in_mongo(self, obj):
         self.logr.debug("Putting in Mongo: " + str(obj))
-        self.collection().insert(obj)
+        for rule in obj['gnip']['matching_rules']:
+            self.client()[rule['tag'].insert(obj)
 
     def client(self):
-        host = self.environment.mongo_host
-        port = int(self.environment.mongo_port)
-        db = self.environment.mongo_db
-        return MongoClient(host=host, port=port)[db]
+        if not self._client:
+            host = self.environment.mongo_host
+            port = int(self.environment.mongo_port)
+            db = self.environment.mongo_db
+            self._client = MongoClient(host=host, port=port)[db]
+            self._client.authenticate(self.environment.mongo_username,self.environment.mongo_password)
+        return self._client
 
-    def collection(self):
-        if not self._collection:
-            self._collection = self.environment.mongo_collection
-        return self._collection
+    # def collection(self):
+    #     if not self._collection:
+    #         self._collection = self.environment.mongo_collection
+    #     return self._collection
 
     def stop(self):
         self._stopped.set()
