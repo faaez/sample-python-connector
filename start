@@ -1,3 +1,3 @@
 #!/bin/sh
 export PYTHONPATH=$PYTHONPATH:'./src'
-python ./bin/sample_python_app.py
+python ./bin/dietssd_gnip_app.py
