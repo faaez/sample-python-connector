@@ -1,6 +1,7 @@
 __author__ = "Nick Isaacs"
 import multiprocessing
 import logging
+import random
 from multiprocessing import queues
 from pymongo import MongoClient
 from src.processor.BaseProcessor import BaseProcessor
@@ -24,6 +25,8 @@ class MongoProcessor(BaseProcessor):
         while not self._stopped.is_set():
             payload = self.next_message()
             if not None == payload:
+                payload['random'] = random.random()
+                payload['gnip'] = True
                 self.put_in_mongo(payload)
         self.logr.debug("Exiting Mongo run loop")
 
