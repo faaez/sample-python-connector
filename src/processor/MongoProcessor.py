@@ -6,7 +6,7 @@ from multiprocessing import queues
 from pymongo import MongoClient
 from src.processor.BaseProcessor import BaseProcessor
 
-MONGO_COLLECTION = "tweets"
+MONGO_COLLECTIONS = {"lncs":"lncs_combined","dietssds":"dietssds_decanted",}
 
 
 class MongoProcessor(BaseProcessor):
@@ -26,7 +26,7 @@ class MongoProcessor(BaseProcessor):
             payload = self.next_message()
             if not None == payload:
                 payload['random'] = random.random()
-                payload['gnip'] = True
+                payload['after_gnip'] = True
                 self.put_in_mongo(payload)
         self.logr.debug("Exiting Mongo run loop")
 

@@ -170,7 +170,7 @@ def configure():
     mongo_host = get_user_input_with_default('Mongo hostname (defaults to 0.0.0.0)', '0.0.0.0')
     mongo_port = get_user_input_with_default('Mongo port no (defaults to 27017)', '27017')
     mongo_db = get_user_input_with_default("Mongo database name (defaults to samplePythonConnector)", "samplePythonConnector")
-    mongo_collection = get_user_input_with_default("Mongo collection name (defaults to tweets)", "tweets")
+    # mongo_collection = get_user_input_with_default("Mongo collection name (defaults to tweets)", "tweets")
     config.set('auth', 'username', gnip_username)
     config.set('auth', 'password', gnip_password)
     config.set('stream', 'streamurl', stream_url)
@@ -182,7 +182,7 @@ def configure():
     config.set("mongo", 'host', mongo_host)
     config.set("mongo", 'port', mongo_port)
     config.set("mongo", "db", mongo_db)
-    config.set("mongo","collection",mongo_collection)
+    # config.set("mongo","collection",mongo_collection)
 
     write_out_config(config)
     msg = string.Template("Configuration: $config").substitute(config=str(config._sections))
