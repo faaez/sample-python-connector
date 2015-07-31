@@ -42,7 +42,7 @@ class MongoProcessor(BaseProcessor):
 
     def collection(self):
         if not self._collection:
-            self._collection = self.client()[MONGO_COLLECTION]
+            self._collection = self.environment.mongo_collection
         return self._collection
 
     def stop(self):

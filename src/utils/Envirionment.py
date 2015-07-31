@@ -86,6 +86,7 @@ class Envirionment(object):
             self.mongo_host = self.config.get('mongo', 'host')
             self.mongo_port = self.config.get('mongo', 'port')
             self.mongo_db = self.config.get('mongo', 'db')
+            self.mongo_collection = self.config.get('mongo','collection')
 
     def setup_logs(self):
         relative_log_path = self.config.get('sys', 'logfilepath').strip(r'^/') or "log"
