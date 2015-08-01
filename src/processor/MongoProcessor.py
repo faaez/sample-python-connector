@@ -33,7 +33,7 @@ class MongoProcessor(BaseProcessor):
     def put_in_mongo(self, obj):
         self.logr.debug("Putting in Mongo: " + str(obj))
         for rule in obj['gnip']['matching_rules']:
-            self.client()[rule['tag'].insert(obj)
+            self.client()[rule['tag']].insert(obj)
 
     def client(self):
         if not self._client:
